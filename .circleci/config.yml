@@ -31,7 +31,7 @@ version: 2.1
 #             #  Add revert code here. You can find this in the Getting Started section.
 #               exit 1
 #             fi
-            
+  #################### (phase test)#####################          
 jobs:
   build-frontend:
     docker:
@@ -69,23 +69,36 @@ jobs:
           paths: [backend/node_modules]
           key: backend-build
 
-
-#   test-frontend:
-#     docker:
-#       # Docker image here
-#     steps:
-#       # Checkout code from git
-#       # Restore from cache
-#       # Your job code here
-                
-#   test-backend:
-#     docker:
-#       # Docker image here
-#     steps:
-#       # Checkout code from git
-#       # Restore from cache
-#       # Your job code here
-            
+#########################(test phase )######################################
+  test-frontend:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - restore_cache:
+          keys: [frontend-build]
+      - run:
+          name: run frontend test
+          command: |
+            cd frontend
+            npm install
+            npm run test
+            # exit 1
+  test-backend:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - restore_cache:
+          keys: [backend-build]
+      - run:
+          name: run backend test
+          command: |
+            cd backtend
+            npm install
+            npm run test
+            # exit 1
+##############################################################################            
 #   scan-frontend:
 #     docker:
 #       # Docker image here
