@@ -4,7 +4,7 @@ commands:
   destroy-environment:
     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
     parameters:
-      ID:
+      workflow_id:
         type: string  
     steps:
       - run:
@@ -137,9 +137,13 @@ jobs:
   deploy-infrastructure:
     docker:
       - image: amazon/aws-cli
+    branches:
+      only: 
+        - master
+        - /rc-,*/
     steps:
       - Checkout 
-      - run: yum install -y tar gzip
+      - run: yum -y install tar gzip
       - run:
           name: Ensure back-end infrastructure exists
           command: |
