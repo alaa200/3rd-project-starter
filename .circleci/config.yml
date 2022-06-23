@@ -188,7 +188,7 @@ jobs:
             ansible-playbook -i inventory.txt configure-server.yml
       - destroy-environment :
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}    
-###############################################################################################
+#################################(  run-migrations )##############################################################
   run-migrations:
     docker:
       - image: circleci/node:13.8.0
@@ -211,8 +211,8 @@ jobs:
             curl https://kvdb.io/V7jBeqk6mKQYNxyLaaaDVU/migration_${CIRCLE_WORKFLOW_ID:0:7} -d '1'
             fi
             
-     # Here's where you will add some code to rollback on failure
-     - destroy-environment :
+     # Here's where you willl add some code to rollback on failure
+      - destroy-environment :
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}       
 ###############################################################################################
 #   deploy-frontend:
