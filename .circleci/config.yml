@@ -133,7 +133,7 @@ jobs:
       - image: amazon/aws-cli
 
     steps:
-    - checkout
+      - checkout
       - run: yum -y install tar gzip
       - run:
           name: the Workflow ID parameter represents the bucket name
