@@ -187,6 +187,7 @@ jobs:
           command: |
             apk add --update ansible
             yum -y install tar gzip
+            pip3 install awscli --upgrade --user
       - run:
           name: Configure server
           command: |
