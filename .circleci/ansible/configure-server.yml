@@ -22,12 +22,7 @@
       raw: test -e /usr/bin/python3 || (apt -y update && apt install -y python3)
       changed_when: false
   # Get the environment variables from CircleCI and add to the EC2 instance
-    - name: install ans start app
-      command: pm2 start main.js
-      args:
-        chdir:~/backend/dist
       environment:
-        ENVIROMENT: production
         TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION')}}"  
         TYPEORM_ENTITIES: "{{ lookup('env', 'TYPEORM_ENTITIES')}}"
         TYPEORM_HOST: "{{ lookup('env', 'TYPEORM_HOST')}}"
