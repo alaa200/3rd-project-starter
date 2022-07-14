@@ -14,6 +14,17 @@ commands:
             echo "Destroying environment: << parameters.workflow_id >> "
             aws cloudformation delete-stack --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}"
             aws cloudformation delete-stack --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}"
+
+  install_awscli:
+    decription: install aws cli 
+    steps:
+      - run:
+          name: install awscli
+          command : |
+            sudo apt-get install curl
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install         
            
 ###################################( revert-migrations )################################################3
 # revert-migrations:
@@ -111,6 +122,7 @@ jobs:
             cd frontend
             npm install
             npm audit fix --audit-level=critical --force
+            npm audit fix --audit-level=critical --force
             npm audit --audit-level=critical
   scan-backend:
     docker:
@@ -178,6 +190,7 @@ jobs:
       - image: python:3.7-alpine3.11
     steps: 
       - checkout
+      - install_awscli:
       - add_ssh_keys:
           fingerprints: ["26:dd:35:90:ff:f7:bb:e8:6a:df:f7:bf:52:c3:8d:18"]
       - attach_workspace:
